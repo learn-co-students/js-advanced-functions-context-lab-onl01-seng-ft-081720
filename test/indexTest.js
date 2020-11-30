@@ -143,9 +143,9 @@ describe("The payroll system", function () {
     describe("hoursWorkedOnDate", function () {
       it("calculates that the employee worked 2 hours", function () {
         cRecord = createEmployeeRecord(["Julius", "Caesar", "General", 1000])
-        createTimeInEvent.call(cRecord, "44-03-15 0900")
-        createTimeOutEvent.call(cRecord, "44-03-15 1100")
-        expect(hoursWorkedOnDate.call(cRecord, "44-03-15")).to.equal(2)
+        createTimeInEvent.call(cRecord, "2015-03-15 0900")
+        createTimeOutEvent.call(cRecord, "2015-03-15 1100")
+        expect(hoursWorkedOnDate.call(cRecord, "2015-03-15")).to.equal(2)
       })
     })
   })
