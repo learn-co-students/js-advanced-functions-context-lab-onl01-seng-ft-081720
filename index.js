@@ -9,6 +9,65 @@
  for you to use if you need it!
  */
 
+ function createEmployeeRecord(array){
+    return {
+        firstName: array[0],
+        familyName: array[1],
+        title: array[2],
+        payPerHour: array[3],
+        timeInEvents: [],
+        timeOutEvents: []
+    }
+ }
+
+ function createEmployeeRecords(array) {
+     return array.map(function(e){
+         return createEmployeeRecord(e)
+     })
+ }
+
+ function createTimeInEvent(dateStamp){
+     let [date, hour] = dateStamp.split(" ")
+
+     this.timeInEvents.push({
+         type: "TimeIn",
+         hour: parseInt(hour, 10),
+         date: date
+     })
+
+     return this
+ }
+
+ function createTimeOutEvent(dateStamp){
+    let [date, hour] = dateStamp.split(" ")
+
+    this.timeOutEvents.push({
+        type: "TimeOut",
+        hour: parseInt(hour, 10),
+        date: date
+    })
+
+    return this
+}
+
+function hoursWorkedOnDate(soughtDate){
+    let checkedIn = this.timeInEvents.find(function(e){
+        return e.date === soughtDate
+    })
+
+    let checkedOut = this.timeOutEvents.find(function(e){
+        return e.date === soughtDate
+    })
+
+    return (checkedOut.hour - checkedIn.hour) / 100
+}
+
+function wagesEarnedOnDate(dateSought){
+    let wagesEarned = hoursWorkedOnDate.call(this, dateSought)
+        * this.payPerHour
+    return parseFloat(wagesEarned.toString())
+}
+
 let allWagesFor = function () {
     let eligibleDates = this.timeInEvents.map(function (e) {
         return e.date
@@ -20,3 +79,15 @@ let allWagesFor = function () {
 
     return payable
 }
+
+function findEmployeeByFirstName(srcArray, firstName) {
+    return srcArray.find(function(rec){
+      return rec.firstName === firstName
+    })
+  }
+  
+  function calculatePayroll(arrayOfEmployeeRecords){
+      return arrayOfEmployeeRecords.reduce(function(memo, rec){
+          return memo + allWagesFor.call(rec)
+      }, 0)
+    }
